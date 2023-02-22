@@ -936,6 +936,9 @@ namespace Solnet.Anchor
             {
                 foreach (var val in idl.Errors)
                 {
+                    string error_msg = string.Empty;
+                    if(val.Msg != null)
+                        error_msg = val.Msg;
                     var errValue = InitializerExpression(
                         SyntaxKind.ComplexElementInitializerExpression,
                         SeparatedList<ExpressionSyntax>(
@@ -959,7 +962,7 @@ namespace Solnet.Anchor
                                         Argument(
                                             LiteralExpression(
                                                 SyntaxKind.StringLiteralExpression,
-                                                Literal(val.Msg)))})), default)}));
+                                                Literal(error_msg)))})), default)}));
                     syntaxNodeOrTokens = syntaxNodeOrTokens.Add(errValue);
                     syntaxNodeOrTokens = syntaxNodeOrTokens.Add(Token(SyntaxKind.CommaToken));
                 }
